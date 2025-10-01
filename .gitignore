@@ -1,0 +1,11 @@
+# Escludi configurazioni IntelliJ
+.idea/
+
+# Escludi build Java
+target/
+out/
+*.class
+
+# Escludi file temporanei
+*.log
+*.tmp
