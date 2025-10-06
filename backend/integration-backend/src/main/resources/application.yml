@@ -1,0 +1,35 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:h2:mem:devdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+logging:
+  level:
+    root: INFO
+    com.zaxxer.hikari: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+app:
+  inps:
+    json-path: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inps/pensioniItalia.json"
+  inail:
+    xml-lazio: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Lazio_sample.xml"
+    xml-lombardia: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Lombardia_sample.xml"
+    xml-calabria: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Calabria_sample.xml"
