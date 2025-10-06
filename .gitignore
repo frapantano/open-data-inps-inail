@@ -1,11 +1,22 @@
-# Escludi configurazioni IntelliJ
+# IntelliJ / IDE
 .idea/
+*.iml
+.vscode/
 
-# Escludi build Java
+# Build Java/Maven
 target/
 out/
 *.class
 
-# Escludi file temporanei
+# Runtime / locali
+.local/
+*.mv.db
 *.log
-*.tmp
+hs_err_pid*.log
+
+# Dataset
+datasets/
+
+# OS
+.DS_Store
+Thumbs.db
