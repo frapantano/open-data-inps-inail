@@ -9,15 +9,15 @@ public class UtilMapping {
 
         switch (descClasseEta) {
             case "Fino a 54":
-                return 1;
+                return ClasseEta.ETA_FINO_A_54.getCode();
             case "55 - 59":
-                return 2;
+                return ClasseEta.ETA_55_59.getCode();
             case "60 - 64":
-                return 3;
+                return ClasseEta.ETA_60_64.getCode();
             case "65 - 67":
-                return 4;
+                return ClasseEta.ETA_65_67.getCode();
             case "68 e oltre":
-                return 5;
+                return ClasseEta.ETA_68_OLTRE.getCode();
             default:
                 return null; // gestisci skip+WARN nel service
         }
@@ -30,9 +30,9 @@ public class UtilMapping {
 
         switch (descSesso) {
             case "Maschi":
-                return "S";
+                return "M";
             case "Femmine":
-                return "N";
+                return "F";
             default:
                 return null; // gestisci skip+WARN nel service
         }

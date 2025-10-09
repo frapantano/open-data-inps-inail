@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.inps.domain;
+package it.university.opendata.integration_backend.inps.entity;
 
 import jakarta.persistence.*;
 
@@ -18,22 +18,22 @@ public class PensioniInps {
     @Column(name = "ANNO", nullable = false)
     private Integer anno;
 
-    @Column(name = "TRIMESTRE", nullable = false, length = 3) // "I","II","III","IV"
+    @Column(name = "TRIMESTRE", nullable = false, length = 3)           // "I","II","III","IV"
     private String trimestre;
 
-    @Column(name = "REGIONE", nullable = false) // codice numerico ISTAT
+    @Column(name = "REGIONE", nullable = false)                         // codice numerico ISTAT
     private String regione;
 
-    @Column(name = "SESSO", nullable = false, length = 1) // 'S' = Maschio, 'N' = Femmina
+    @Column(name = "SESSO", nullable = false, length = 1)               // 'M' = Maschio, 'F' = Femmina
     private String sesso;
 
-    @Column(name = "CLASSE_ETA", nullable = false) // 1..5
+    @Column(name = "CLASSE_ETA", nullable = false)                      // 1..5
     private Integer classeEta;
 
-    @Column(name = "CATEGORIA_PENSIONE", nullable = false, length = 1) // 'I' = Invalidità /'S' = Superstiti
+    @Column(name = "CATEGORIA_PENSIONE", nullable = false, length = 1)  // 'I' = Invalidità /'S' = Superstiti
     private String categoriaPensione;
 
-    @Column(name = "GESTIONE", nullable = false, length = 1)
+    @Column(name = "GESTIONE", nullable = false, length = 4)            //Codice Ateco
     private String gestione;
 
     @Column(name = "NUM_PENSIONI", nullable = false)
@@ -44,6 +44,10 @@ public class PensioniInps {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getAnno() {
