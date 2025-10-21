@@ -9,21 +9,21 @@ public class InpsMapping {
 
         switch (descClasseEta) {
             case "Fino a 54":
-                return ClasseEta.ETA_FINO_A_54.getCode();
+                return ClasseEta.ETA_FINO_A_54.getCodice();
             case "55 - 59":
-                return ClasseEta.ETA_55_59.getCode();
+                return ClasseEta.ETA_55_59.getCodice();
             case "60 - 64":
-                return ClasseEta.ETA_60_64.getCode();
+                return ClasseEta.ETA_60_64.getCodice();
             case "65 - 67":
-                return ClasseEta.ETA_65_67.getCode();
+                return ClasseEta.ETA_65_67.getCodice();
             case "68 e oltre":
-                return ClasseEta.ETA_68_OLTRE.getCode();
+                return ClasseEta.ETA_68_OLTRE.getCodice();
             default:
                 return null;
         }
     }
 
-    /** Dalla descrizione ritorna il codice S / N; null se non mappabile. */
+    /** Dalla descrizione ritorna il codice S / M; null se non mappabile. */
     public static String codiceInpsFromDescSesso(String descSesso) {
         if (descSesso == null || descSesso.isBlank())
             return null;

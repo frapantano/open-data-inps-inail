@@ -18,7 +18,7 @@ public enum ClasseEta {
         this.maxEscluso = maxEscluso;
     }
 
-    public Integer getCode() { return codice; }
+    public Integer getCodice() { return codice; }
 
     /**
      * true se grado compreso [minIncluso, maxEscluso)
@@ -33,7 +33,7 @@ public enum ClasseEta {
      * Data l'eta' (anche null)
      * ritorna direttamente il codice
      **/
-    public static Integer codiceFromGrado(Integer eta) {
+    public static Integer codiceFromDescEta(Integer eta) {
         if (eta == null) {
             throw new IllegalArgumentException("Eta nulla");
         }
@@ -42,7 +42,7 @@ public enum ClasseEta {
         }
         for (ClasseEta c : values()) {
             if (c.contiene(eta)) {
-                return c.getCode();
+                return c.getCodice();
             }
         }
         throw new IllegalArgumentException("Eta fuori range gestiti: " + eta);

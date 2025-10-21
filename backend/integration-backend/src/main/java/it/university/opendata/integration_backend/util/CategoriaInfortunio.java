@@ -18,7 +18,7 @@ public enum CategoriaInfortunio {
         this.maxEscluso = maxEscluso;
     }
 
-    public String getCode() { return codice; }
+    public String getCodice() { return codice; }
 
     /**
      * true se grado compreso [minIncluso, maxEscluso)
@@ -33,13 +33,19 @@ public enum CategoriaInfortunio {
      * Dato il grado (anche null)
      * ritorna direttamente il codice ("FR","LQ","MT","GP")
      **/
-    public static String codiceFromGrado(Integer grado) {
+    public static String codiceFromGrado(Integer grado, String dataMorte) {
+        if (dataMorte != null && !dataMorte.trim().isEmpty()) {
+            return MORTALE.codice;
+        }
+
         if (grado == null) {
             throw new IllegalArgumentException("Grado nullo");
         }
+
         for (CategoriaInfortunio c : values()) {
+            if (c == MORTALE) continue;
             if (c.contiene(grado)) {
-                return c.getCode();
+                return c.getCodice();
             }
         }
         throw new IllegalArgumentException("Grado fuori range gestiti: " + grado);

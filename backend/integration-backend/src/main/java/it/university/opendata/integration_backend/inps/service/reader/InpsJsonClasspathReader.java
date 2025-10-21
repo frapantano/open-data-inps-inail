@@ -23,7 +23,6 @@ public class InpsJsonClasspathReader extends InpsJsonReader {
     public List<InpsJsonRecord> readFromClasspath(String path) throws IOException {
         logger.info("Cerco risorsa sul classpath: {}", path);
         ClassPathResource res = new ClassPathResource(path);
-        logger.info("Resource esiste: {}", res.exists());
         if (!res.exists()) {
             return null;
         }

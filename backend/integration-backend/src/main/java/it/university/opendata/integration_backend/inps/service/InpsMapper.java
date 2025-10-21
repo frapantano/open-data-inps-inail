@@ -7,10 +7,14 @@ import it.university.opendata.integration_backend.util.RegioniSingleton;
 import it.university.opendata.integration_backend.util.InpsMapping;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Component
 public class InpsMapper {
 
-    public InpsKey inpsKeyOf(InpsJsonRecord r) {
+    private InpsKey inpsKeyOf(InpsJsonRecord r) {
         return new InpsKey(
                 r.getAnno(),
                 InpsMapping.trimestreToRoman(r.getTrimestre()),
@@ -21,7 +25,7 @@ public class InpsMapper {
         );
     }
 
-    public PensioniInps toInpsEntity(InpsKey key, Double somma) {
+    private PensioniInps toInpsEntity(InpsKey key, Double somma) {
         PensioniInps e = new PensioniInps();
         e.setAnno(key.getAnno());
         e.setTrimestre(key.getTrimestre());
@@ -31,5 +35,19 @@ public class InpsMapper {
         e.setCategoriaPensione(key.getCategoria());
         e.setNumPensioni(somma.intValue());
         return e;
+    }
+
+    public List<PensioniInps> getPensioniInps(List<InpsJsonRecord> pensioniItalia) {
+        //Aggrega dati Inps
+        Map<InpsKey, Double> totaliAggregati = pensioniItalia.stream()
+                .collect(Collectors.groupingBy(
+                        this :: inpsKeyOf,
+                        Collectors.summingDouble(InpsJsonRecord::getNumeroPensioni)
+                ));
+
+        //Mapping risultati in PensioniInps Entity
+        return totaliAggregati.entrySet().stream()
+                .map(e -> toInpsEntity(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
     }
 }

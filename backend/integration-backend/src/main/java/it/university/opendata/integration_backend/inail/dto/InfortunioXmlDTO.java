@@ -21,13 +21,13 @@ public class InfortunioXmlDTO {
     private String genere;
 
     @JsonProperty("Eta")
-    private String eta;
+    private Integer eta;
 
     @JsonProperty("IdentificativoCaso")
     private String identificativoCaso;
 
     @JsonProperty("GradoMenomazione")
-    private String gradoMenomazione;
+    private Integer gradoMenomazione;
 
     @JsonProperty("DataMorte")
     private String dataMorte;
