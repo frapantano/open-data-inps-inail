@@ -39,9 +39,6 @@ public class InfortuniInail {
     @Column(name = "CATEGORIA_INFORTUNIO", nullable = false, length = 2)    //ENUM :MORTALE "MO", FRANCHIGIA "FR" [-1, 5), LIQUIDAZIONE "LQ" [5, 16), MEDIO_TEMPORANEO "MT" [16, 80), GRAVE_PERMANENTE "GP" [80, +∞)
     private String categoriaInfortunio;
 
-    @Column(name = "GESTIONE", nullable = false, length = 4)                //Codice Ateco
-    private String gestione;
-
     @Column(name = "NUM_INFORTUNI", nullable = false)
     private Integer numInfortuni;
 
@@ -104,14 +101,6 @@ public class InfortuniInail {
         this.categoriaInfortunio = categoriaInfortunio;
     }
 
-    public String getGestione() {
-        return gestione;
-    }
-
-    public void setGestione(String gestione) {
-        this.gestione = gestione;
-    }
-
     public Integer getNumInfortuni() {
         return numInfortuni;
     }
@@ -132,13 +121,12 @@ public class InfortuniInail {
                 Objects.equals(getSesso(), that.getSesso()) &&
                 Objects.equals(getClasseEta(), that.getClasseEta()) &&
                 Objects.equals(getCategoriaInfortunio(), that.getCategoriaInfortunio()) &&
-                Objects.equals(getGestione(), that.getGestione()) &&
                 Objects.equals(getNumInfortuni(), that.getNumInfortuni());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, getAnno(), getTrimestre(), getRegione(), getSesso(), getClasseEta(), getCategoriaInfortunio(), getGestione(), getNumInfortuni());
+        return Objects.hash(id, getAnno(), getTrimestre(), getRegione(), getSesso(), getClasseEta(), getCategoriaInfortunio(), getNumInfortuni());
     }
 
     @Override
@@ -151,7 +139,6 @@ public class InfortuniInail {
                 ", sesso='" + sesso + '\'' +
                 ", classeEta=" + classeEta +
                 ", categoriaInfortunio='" + categoriaInfortunio + '\'' +
-                ", gestione='" + gestione + '\'' +
                 ", numInfortuni=" + numInfortuni +
                 '}';
     }

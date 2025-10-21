@@ -1,7 +1,6 @@
 package it.university.opendata.integration_backend.inps.service.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.university.opendata.integration_backend.inps.InpsEtlRunner;
 import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -16,7 +15,7 @@ import org.slf4j.LoggerFactory;
 @Service
 public class InpsJsonClasspathReader extends InpsJsonReader {
 
-    private static final Logger logger = LoggerFactory.getLogger(InpsEtlRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(InpsJsonClasspathReader.class);
 
     @Autowired
     public InpsJsonClasspathReader(ObjectMapper mapper) { super(mapper); }

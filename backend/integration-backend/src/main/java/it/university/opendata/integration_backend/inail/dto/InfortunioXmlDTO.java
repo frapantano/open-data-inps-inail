@@ -17,23 +17,20 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class InfortunioXmlDTO {
 
-    @JsonProperty("DataMorte")
-    private String dataMorte;
-
     @JsonProperty("Genere")
     private String genere;
 
     @JsonProperty("Eta")
     private String eta;
 
+    @JsonProperty("IdentificativoCaso")
+    private String identificativoCaso;
+
     @JsonProperty("GradoMenomazione")
     private String gradoMenomazione;
 
-    @JsonProperty("SettoreAttivitaEconomica")
-    private String settoreAttivitaEconomica;
-
-    @JsonProperty("IdentificativoCaso")
-    private String identificativoCaso;
+    @JsonProperty("DataMorte")
+    private String dataMorte;
 
     @Override
     public boolean equals(Object o) {
@@ -44,13 +41,12 @@ public class InfortunioXmlDTO {
                 Objects.equals(getGenere(), that.getGenere()) &&
                 Objects.equals(getEta(), that.getEta()) &&
                 Objects.equals(getGradoMenomazione(), that.getGradoMenomazione()) &&
-                Objects.equals(getSettoreAttivitaEconomica(), that.getSettoreAttivitaEconomica()) &&
                 Objects.equals(getIdentificativoCaso(), that.getIdentificativoCaso());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDataMorte(), getGenere(), getEta(), getGradoMenomazione(), getSettoreAttivitaEconomica(), getIdentificativoCaso());
+        return Objects.hash(getDataMorte(), getGenere(), getEta(), getGradoMenomazione(), getIdentificativoCaso());
     }
 
     @Override
@@ -60,7 +56,6 @@ public class InfortunioXmlDTO {
                 ", genere='" + genere + '\'' +
                 ", eta='" + eta + '\'' +
                 ", gradoMenomazione='" + gradoMenomazione + '\'' +
-                ", settoreAttivitaEconomica='" + settoreAttivitaEconomica + '\'' +
                 ", identificativoCaso='" + identificativoCaso + '\'' +
                 '}';
     }

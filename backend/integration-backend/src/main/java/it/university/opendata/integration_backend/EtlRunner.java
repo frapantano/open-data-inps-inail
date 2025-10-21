@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.inps;
+package it.university.opendata.integration_backend;
 
 import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import it.university.opendata.integration_backend.inps.dto.InpsKey;
@@ -19,23 +19,25 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class InpsEtlRunner implements CommandLineRunner {
+public class EtlRunner implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(InpsEtlRunner.class);
-
-    @Autowired
-    private InpsJsonClasspathReader reader;
+    private static final Logger logger = LoggerFactory.getLogger(EtlRunner.class);
 
     @Autowired
-    private InpsMapper mapper;
+    private InpsJsonClasspathReader inpsReader;
 
     @Autowired
-    private PensioniInpsRepository repository;
+    private InpsMapper inpsMapper;
+
+    @Autowired
+    private PensioniInpsRepository inpsRepository;
 
     @Override
     public void run(String... args) throws IOException {
-        String path = "datasets/2024/primoSemestre/inps/pensioniItalia.json";
-        List<InpsJsonRecord> records = reader.readFromClasspath(path);
+        String path = "datasets/2024/primoSemestre/";
+
+        //Caricamento dati INPS
+        List<InpsJsonRecord> records = inpsReader.readFromClasspath(path + "inps/pensioniItalia.json");
         if (records == null) {
             logger.error("ATTENZIONE: File JSON non trovato o vuoto!");
             return;
@@ -43,15 +45,15 @@ public class InpsEtlRunner implements CommandLineRunner {
 
         Map<InpsKey, Double> totaliAggregati =  records.stream()
                 .collect(Collectors.groupingBy(
-                        mapper::inpsKeyOf,
+                        inpsMapper::inpsKeyOf,
                         Collectors.summingDouble(InpsJsonRecord::getNumeroPensioni)
                 ));
 
         List<PensioniInps> entities = totaliAggregati.entrySet().stream()
-                        .map(e -> mapper.toInpsEntity(e.getKey(), e.getValue()))
+                        .map(e -> inpsMapper.toInpsEntity(e.getKey(), e.getValue()))
                         .collect(Collectors.toList());
 
-        repository.saveAll(entities);
-        logger.info("ETL completato: " + entities.size() + " record caricati.");
+        inpsRepository.saveAll(entities);
+        logger.info("ETL INPS completato: " + entities.size() + " record caricati.");
     }
 }

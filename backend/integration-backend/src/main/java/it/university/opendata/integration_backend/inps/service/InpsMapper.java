@@ -4,7 +4,7 @@ import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import it.university.opendata.integration_backend.inps.dto.InpsKey;
 import it.university.opendata.integration_backend.inps.entity.PensioniInps;
 import it.university.opendata.integration_backend.util.RegioniSingleton;
-import it.university.opendata.integration_backend.util.UtilMapping;
+import it.university.opendata.integration_backend.util.InpsMapping;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,11 +13,11 @@ public class InpsMapper {
     public InpsKey inpsKeyOf(InpsJsonRecord r) {
         return new InpsKey(
                 r.getAnno(),
-                UtilMapping.trimestreToRoman(r.getTrimestre()),
+                InpsMapping.trimestreToRoman(r.getTrimestre()),
                 RegioniSingleton.codiceFromNomeRegione(r.getRegione()),
-                UtilMapping.codiceInpsFromDescSesso(r.getSesso()),
-                UtilMapping.codiceInpsFromDescClasseEta(r.getClasseEta()),
-                UtilMapping.codiceInpsFromDescPensione(r.getCategoria())
+                InpsMapping.codiceInpsFromDescSesso(r.getSesso()),
+                InpsMapping.codiceInpsFromDescClasseEta(r.getClasseEta()),
+                InpsMapping.codiceInpsFromDescPensione(r.getCategoria())
         );
     }
 

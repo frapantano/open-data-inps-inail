@@ -1,6 +1,6 @@
 package it.university.opendata.integration_backend.util;
 
-public class UtilMapping {
+public class InpsMapping {
 
     /** Dalla descrizione ritorna il codice 1..5; null se non mappabile. */
     public static Integer codiceInpsFromDescClasseEta(String descClasseEta) {
