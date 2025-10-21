@@ -33,9 +33,6 @@ public class PensioniInps {
     @Column(name = "CATEGORIA_PENSIONE", nullable = false, length = 1)  // 'I' = Invalidità /'S' = Superstiti
     private String categoriaPensione;
 
-    @Column(name = "GESTIONE", nullable = false, length = 4)            //Codice Ateco
-    private String gestione;
-
     @Column(name = "NUM_PENSIONI", nullable = false)
     private Integer numPensioni;
 
@@ -106,14 +103,6 @@ public class PensioniInps {
         this.numPensioni = numPensioni;
     }
 
-    public String getGestione() {
-        return gestione;
-    }
-
-    public void setGestione(String gestione) {
-        this.gestione = gestione;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,13 +115,12 @@ public class PensioniInps {
                 Objects.equals(getSesso(), that.getSesso()) &&
                 Objects.equals(getClasseEta(), that.getClasseEta()) &&
                 Objects.equals(getCategoriaPensione(), that.getCategoriaPensione()) &&
-                Objects.equals(getGestione(), that.getGestione()) &&
                 Objects.equals(getNumPensioni(), that.getNumPensioni());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAnno(), getTrimestre(), getRegione(), getSesso(), getClasseEta(), getCategoriaPensione(), getGestione(), getNumPensioni());
+        return Objects.hash(getId(), getAnno(), getTrimestre(), getRegione(), getSesso(), getClasseEta(), getCategoriaPensione(), /*getGestione(), */getNumPensioni());
     }
 
     @Override
@@ -145,7 +133,6 @@ public class PensioniInps {
                 ", sesso='" + sesso + '\'' +
                 ", classeEta=" + classeEta +
                 ", categoriaPensione='" + categoriaPensione + '\'' +
-                ", gestione='" + gestione + '\'' +
                 ", numPensioni=" + numPensioni +
                 '}';
     }

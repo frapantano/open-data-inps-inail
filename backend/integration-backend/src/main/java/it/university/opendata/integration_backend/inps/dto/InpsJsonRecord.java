@@ -22,9 +22,6 @@ public class InpsJsonRecord {
     @JsonProperty("SESSO")
     private String  sesso;                 // "Maschi"/"Femmine"
 
-    @JsonProperty("tgestio")
-    private String  tgestio;
-
     @JsonProperty("classe_eta")
     private String  classeEta;             // es. "55 - 59" (se presente)
 
@@ -47,7 +44,6 @@ public class InpsJsonRecord {
         InpsJsonRecord that = (InpsJsonRecord) o;
         return Objects.equals(getAnno(), that.getAnno()) &&
                 Objects.equals(getSesso(), that.getSesso()) &&
-                Objects.equals(getTgestio(), that.getTgestio()) &&
                 Objects.equals(getClasseEta(), that.getClasseEta()) &&
                 Objects.equals(getCategoria(), that.getCategoria()) &&
                 Objects.equals(getRegione(), that.getRegione()) &&
@@ -57,7 +53,7 @@ public class InpsJsonRecord {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnno(), getSesso(), getTgestio(), getClasseEta(), getCategoria(), getRegione(), getTrimestre(), getNumeroPensioni());
+        return Objects.hash(getAnno(), getSesso(), getClasseEta(), getCategoria(), getRegione(), getTrimestre(), getNumeroPensioni());
     }
 
     @Override
@@ -65,7 +61,6 @@ public class InpsJsonRecord {
         return "InpsJsonRecord{" +
                 "anno=" + anno +
                 ", sesso='" + sesso + '\'' +
-                ", tgestio='" + tgestio + '\'' +
                 ", classeEta='" + classeEta + '\'' +
                 ", categoria='" + categoria + '\'' +
                 ", regione='" + regione + '\'' +

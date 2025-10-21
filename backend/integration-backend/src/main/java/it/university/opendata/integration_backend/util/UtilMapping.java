@@ -19,7 +19,7 @@ public class UtilMapping {
             case "68 e oltre":
                 return ClasseEta.ETA_68_OLTRE.getCode();
             default:
-                return null; // gestisci skip+WARN nel service
+                return null;
         }
     }
 
@@ -34,7 +34,7 @@ public class UtilMapping {
             case "Femmine":
                 return "F";
             default:
-                return null; // gestisci skip+WARN nel service
+                return null;
         }
     }
 
@@ -48,8 +48,12 @@ public class UtilMapping {
                 return "I";
             case "Superstiti":
                 return "S";
+            case "Vecchiaia":
+                return "V";
+            case "Anticipata":
+                return "A";
             default:
-                return null; // gestisci skip+WARN nel service
+                return null;
         }
     }
 
@@ -69,7 +73,7 @@ public class UtilMapping {
             case "IV trimestre":
                 return "IV";
             default:
-                return null; // gestisci skip+WARN nel service
+                return null;
         }
     }
 }
