@@ -26,10 +26,3 @@ management:
     web:
       exposure:
         include: health,info
-app:
-  inps:
-    json-path: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inps/pensioniItalia.json"
-  inail:
-    xml-lazio: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Lazio_sample.xml"
-    xml-lombardia: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Lombardia_sample.xml"
-    xml-calabria: "file:C:/TESI/open-data-inps-inail/datasets/2024/primoSemestre/inail/infortuni_Calabria_sample.xml"

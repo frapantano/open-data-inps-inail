@@ -3,8 +3,10 @@ package it.university.opendata.integration_backend.inps.service;
 import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import it.university.opendata.integration_backend.inps.dto.InpsKey;
 import it.university.opendata.integration_backend.inps.entity.PensioniInps;
-import it.university.opendata.integration_backend.util.RegioniSingleton;
-import it.university.opendata.integration_backend.util.InpsMapping;
+import it.university.opendata.integration_backend.util.CategoriaPensione;
+import it.university.opendata.integration_backend.util.ClasseEta;
+import it.university.opendata.integration_backend.util.Regioni;
+import it.university.opendata.integration_backend.util.UtilMapping;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,11 +19,11 @@ public class InpsMapper {
     private InpsKey inpsKeyOf(InpsJsonRecord r) {
         return new InpsKey(
                 r.getAnno(),
-                InpsMapping.trimestreToRoman(r.getTrimestre()),
-                RegioniSingleton.codiceFromNomeRegione(r.getRegione()),
-                InpsMapping.codiceInpsFromDescSesso(r.getSesso()),
-                InpsMapping.codiceInpsFromDescClasseEta(r.getClasseEta()),
-                InpsMapping.codiceInpsFromDescPensione(r.getCategoria())
+                UtilMapping.trimestreToRoman(r.getTrimestre()),
+                Regioni.getCodiceFromDescrizione(r.getRegione()),
+                UtilMapping.codiceInpsFromDescSesso(r.getSesso()),
+                ClasseEta.codiceInpsFromDescrizione(r.getClasseEta()),
+                CategoriaPensione.getCodiceFromDescrizione(r.getCategoria())
         );
     }
 

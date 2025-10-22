@@ -5,7 +5,7 @@ import it.university.opendata.integration_backend.inail.dto.InfortunioXmlDTO;
 import it.university.opendata.integration_backend.inail.entity.InfortuniInail;
 import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.ClasseEta;
-import it.university.opendata.integration_backend.util.RegioniSingleton;
+import it.university.opendata.integration_backend.util.Regioni;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,9 +19,9 @@ public class InailMapper {
         return new InailKey(
                 anno,
                 trimestre,
-                RegioniSingleton.codiceFromNomeRegione(regione),
+                Regioni.getCodiceFromDescrizione(regione),
                 r.getGenere(),
-                ClasseEta.codiceFromDescEta(r.getEta()),
+                ClasseEta.codiceDaEta(r.getEta()),
                 CategoriaInfortunio.codiceFromGrado(r.getGradoMenomazione(), r.getDataMorte())
         );
     }
