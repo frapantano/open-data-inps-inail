@@ -1,7 +1,7 @@
 package it.university.opendata.integration_backend.inps.repo;
 
 import it.university.opendata.integration_backend.inps.entity.PensioniInps;
-import it.university.opendata.integration_backend.inps.repo.proiezioni.KeySum;
+import it.university.opendata.integration_backend.util.proiezioni.KeySum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -8,7 +8,7 @@ import it.university.opendata.integration_backend.inail.service.reader.InailXmlC
 import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import it.university.opendata.integration_backend.inps.entity.PensioniInps;
 import it.university.opendata.integration_backend.inps.repo.PensioniInpsRepository;
-import it.university.opendata.integration_backend.inps.repo.proiezioni.KeySum;
+import it.university.opendata.integration_backend.util.proiezioni.KeySum;
 import it.university.opendata.integration_backend.inps.service.InpsMapper;
 import it.university.opendata.integration_backend.inps.service.reader.InpsJsonClasspathReader;
 import it.university.opendata.integration_backend.util.CategoriaPensione;
