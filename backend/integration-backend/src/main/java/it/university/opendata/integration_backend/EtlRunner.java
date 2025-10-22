@@ -1,5 +1,6 @@
 package it.university.opendata.integration_backend;
 
+import it.university.opendata.integration_backend.util.Regioni;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class EtlRunner implements CommandLineRunner {
 
     private static final int ANNO = 2024;
     private static final String TRIMESTRE = "I";
-    private static final List<String> REGIONI = new ArrayList<>(List.of("Lombardia", "Lazio", "Calabria"));
+    private static final List<String> REGIONI = new ArrayList<>(Regioni.getTutteDescrizioni());
 
     @Autowired
     private EtlRunnerHelperService helperService;

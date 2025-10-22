@@ -1,6 +1,9 @@
 package it.university.opendata.integration_backend.util;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum Regioni {
 
@@ -60,4 +63,14 @@ public enum Regioni {
                 .findFirst()
                 .orElse(null);
     }
+
+    public static List<String> getTutteDescrizioni() {
+        return Arrays.stream(values())
+                .map(Regioni::getDescrizione)
+                .map(descrizione -> descrizione.equalsIgnoreCase("Valle d'Aosta")
+                        ? descrizione.replace("'", "")
+                        : descrizione)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+    }
+
 }

@@ -84,11 +84,11 @@ public class EtlRunnerHelperService {
 
         //Caricamento dati INAIL
         for (String regione : regioniList) {
-            String resource = path + "inail/infortuni_" + regione + "_sample.xml";
+            String resource = path + "inail/Infortuni_" + regione.trim();
             List<InfortunioXmlDTO> infortuni = inailReader.readFromClasspath(resource);
-            if (infortuni == null) {
-                logger.error("ATTENZIONE: File XML '{}' non trovato o vuoto", resource);
-                return;
+            if (infortuni == null || infortuni.isEmpty()) {
+                logger.warn("ATTENZIONE: File XML '{}' non trovato o vuoto. Procedo con la prossima regione.", resource);
+                continue; // vai avanti senza interrompere il ciclo
             }
 
             //Salva in INFORTUNI_INAIL
