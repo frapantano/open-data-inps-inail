@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Component
@@ -99,47 +100,74 @@ public class EtlRunnerHelperService {
     /**
      * Esegue un’analisi sintetica dei dati INPS per l’anno e il trimestre indicati
      * e scrive nei log i seguenti indicatori:
-     *
+     * <p>
      * Totale pensioni erogate
      * Totale per sesso
      * Totale per classe d’età
      * Totale per categoria di pensione
      * Totale per regione
-     *
+     * <p>
      * La metodologia è: query aggregate sul repository, eventuale mapping delle chiavi tramite
      * {ClasseEta.getDescrizioneFromCodice(...)} e {CategoriaPensione.getDescrizioneFromCodice(...)}
      *
-     * @param anno       anno di riferimento (es. 2024)
-     * @param trimestre  trimestre di riferimento (es. "I", "II", "III", "IV")
+     * @param anno      anno di riferimento (es. 2024)
+     * @param trimestre trimestre di riferimento (es. "I", "II", "III", "IV")
      */
     void getAnalisiDatasetInps(int anno, String trimestre) {
 
         Long totalePensioni = inpsRepository.sumNumPensioniByAnnoAndTrimestre(anno, trimestre);
         logger.info("Nel {} trimestre del {}, numero totale pensioni: {}", trimestre, anno, totalePensioni);
 
+        //Sesso
         List<KeySum> totalePensioniPerSesso = inpsRepository.sumNumPensioniByAnnoAndTrimestreAndSesso(anno, trimestre);
         for (KeySum sesso : totalePensioniPerSesso) {
             String sessoDesc = sesso.getKey().equals("F") ? "femminile" : "maschile";
             logger.info("Nel {} trimestre del {}, numero totale pensioni per sesso {} : {}", trimestre, anno, sessoDesc, sesso.getTotale());
         }
 
+        KeySum maxResultSesso = getMaxPerTotalePensioniPerTipo(totalePensioniPerSesso);
+        String sessoDescMax = maxResultSesso.getKey().equals("F") ? "femminile" : "maschile";
+        logger.info("Nel {} trimestre del {}, il sesso con piu' pensioni e' {} con {}", trimestre, anno, sessoDescMax, maxResultSesso.getTotale());
+
+        //ClasseEta
         List<KeySum> totalePensioniPerClasseEta = inpsRepository.sumNumPensioniByAnnoAndTrimestreAndClasseEta(anno, trimestre);
         for (KeySum classeEta : totalePensioniPerClasseEta) {
             String classeEtaDesc = ClasseEta.getDescrizioneFromCodice((Integer) classeEta.getKey());
             logger.info("Nel {} trimestre del {}, numero totale pensioni per classeEta {} : {}", trimestre, anno, classeEtaDesc, classeEta.getTotale());
         }
 
+        KeySum maxResultClasseEta = getMaxPerTotalePensioniPerTipo(totalePensioniPerClasseEta);
+        String classeEtaDesc = ClasseEta.getDescrizioneFromCodice((Integer) maxResultClasseEta.getKey());
+        logger.info("Nel {} trimestre del {}, la classeEta con piu' pensioni e' {} con {}", trimestre, anno, classeEtaDesc, maxResultClasseEta.getTotale());
+
+        //CategoriaPensione
         List<KeySum> totalePensioniPerCategoriaPensione = inpsRepository.sumNumPensioniByAnnoAndTrimestreAndCategoriaPensione(anno, trimestre);
         for (KeySum categoriaPensione : totalePensioniPerCategoriaPensione) {
             String categoriaPensioneDesc = CategoriaPensione.getDescrizioneFromCodice((String) categoriaPensione.getKey());
             logger.info("Nel {} trimestre del {}, numero totale pensioni per categoriaPensione {} : {}", trimestre, anno, categoriaPensioneDesc, categoriaPensione.getTotale());
         }
 
+        KeySum maxResultCategoriaPensione = getMaxPerTotalePensioniPerTipo(totalePensioniPerCategoriaPensione);
+        String categoriaPensioneDescMax = CategoriaPensione.getDescrizioneFromCodice((String) maxResultCategoriaPensione.getKey());
+        logger.info("Nel {} trimestre del {}, la categoriaPensione con piu' pensioni e' {} con {}", trimestre, anno, categoriaPensioneDescMax, maxResultCategoriaPensione.getTotale());
+
+        //Regione
         List<KeySum> totalePensioniPerRegione = inpsRepository.sumNumPensioniByAnnoAndTrimestreAndRegione(anno, trimestre);
         for (KeySum regione : totalePensioniPerRegione) {
             String regioneDesc = Regioni.getDescrizioneFromCodice((String) regione.getKey());
             logger.info("Nel {} trimestre del {}, numero totale pensioni per regione {} : {}", trimestre, anno, regioneDesc, regione.getTotale());
         }
+
+        KeySum maxResultRegione = getMaxPerTotalePensioniPerTipo(totalePensioniPerRegione);
+        String regioneDescMax = Regioni.getDescrizioneFromCodice((String) maxResultRegione.getKey());
+        logger.info("Nel {} trimestre del {}, il sesso con piu' pensioni e' {} con {}", trimestre, anno, regioneDescMax, maxResultRegione.getTotale());
+
+    }
+
+    private KeySum getMaxPerTotalePensioniPerTipo(List<KeySum> totalePensioniPerTipo) {
+        return totalePensioniPerTipo.stream()
+                .max(Comparator.comparingLong(KeySum::getTotale)) // max per totale
+                .orElse(null);
     }
 
     void getAnalisiDatasetInail(int anno, String trimestre) {
