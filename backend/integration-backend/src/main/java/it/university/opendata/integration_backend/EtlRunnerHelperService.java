@@ -8,6 +8,7 @@ import it.university.opendata.integration_backend.inail.service.reader.InailXmlC
 import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
 import it.university.opendata.integration_backend.inps.entity.PensioniInps;
 import it.university.opendata.integration_backend.inps.repo.PensioniInpsRepository;
+import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.proiezioni.KeySum;
 import it.university.opendata.integration_backend.inps.service.InpsMapper;
 import it.university.opendata.integration_backend.inps.service.reader.InpsJsonClasspathReader;
@@ -161,6 +162,56 @@ public class EtlRunnerHelperService {
         KeySum maxResultRegione = getMaxPerTotalePensioniPerTipo(totalePensioniPerRegione);
         String regioneDescMax = Regioni.getDescrizioneFromCodice((String) maxResultRegione.getKey());
         logger.info("Nel {} trimestre del {}, il sesso con piu' pensioni e' {} con {}", trimestre, anno, regioneDescMax, maxResultRegione.getTotale());
+    }
+
+    void getAnalisiDatasetInail(int anno, String trimestre) {
+
+        Long totaleInfortuni = inailRepository.sumNumInfortuniByAnnoAndTrimestre(anno, trimestre);
+        logger.info("Nel {} trimestre del {}, numero totale infortuni: {}", trimestre, anno, totaleInfortuni);
+
+        //Sesso
+        List<KeySum> totaleInfortuniPerSesso = inailRepository.sumNumInfortuniByAnnoAndTrimestreAndSesso(anno, trimestre);
+        for (KeySum sesso : totaleInfortuniPerSesso) {
+            String sessoDesc = sesso.getKey().equals("F") ? "femminile" : "maschile";
+            logger.info("Nel {} trimestre del {}, numero totale infortuni per sesso {} : {}", trimestre, anno, sessoDesc, sesso.getTotale());
+        }
+
+        KeySum maxResultSesso = getMaxPerTotalePensioniPerTipo(totaleInfortuniPerSesso);
+        String sessoDescMax = maxResultSesso.getKey().equals("F") ? "femminile" : "maschile";
+        logger.info("Nel {} trimestre del {}, il sesso con piu' infortuni e' {} con {}", trimestre, anno, sessoDescMax, maxResultSesso.getTotale());
+
+        //ClasseEta
+        List<KeySum> totaleInfortuniPerClasseEta = inailRepository.sumNumInfortuniByAnnoAndTrimestreAndClasseEta(anno, trimestre);
+        for (KeySum classeEta : totaleInfortuniPerClasseEta) {
+            String classeEtaDesc = ClasseEta.getDescrizioneFromCodice((Integer) classeEta.getKey());
+            logger.info("Nel {} trimestre del {}, numero totale infortuni per classeEta {} : {}", trimestre, anno, classeEtaDesc, classeEta.getTotale());
+        }
+
+        KeySum maxResultClasseEta = getMaxPerTotalePensioniPerTipo(totaleInfortuniPerClasseEta);
+        String classeEtaDesc = ClasseEta.getDescrizioneFromCodice((Integer) maxResultClasseEta.getKey());
+        logger.info("Nel {} trimestre del {}, la classeEta con piu' infortuni e' {} con {}", trimestre, anno, classeEtaDesc, maxResultClasseEta.getTotale());
+
+        //categoriaInfortunio
+        List<KeySum> totaleInfortuniPerCategoriaInfortunio = inailRepository.sumNumInfortuniByAnnoAndTrimestreAndCategoriaInfortunio(anno, trimestre);
+        for (KeySum categoriaInfortunio : totaleInfortuniPerCategoriaInfortunio) {
+            String categoriaInfortunioDesc = CategoriaInfortunio.getDescrizioneFromCodice((String) categoriaInfortunio.getKey());
+            logger.info("Nel {} trimestre del {}, numero totale infortuni per categoriaInfortunio {} : {}", trimestre, anno, categoriaInfortunioDesc, categoriaInfortunio.getTotale());
+        }
+
+        KeySum maxResultCategoriaInfortuni = getMaxPerTotalePensioniPerTipo(totaleInfortuniPerCategoriaInfortunio);
+        String categoriaInfortunioDescMax = CategoriaInfortunio.getDescrizioneFromCodice((String) maxResultCategoriaInfortuni.getKey());
+        logger.info("Nel {} trimestre del {}, la categoriaInfortunio con piu' infortuni e' {} con {}", trimestre, anno, categoriaInfortunioDescMax, maxResultCategoriaInfortuni.getTotale());
+
+        //Regione
+        List<KeySum> totaleInfortuniPerRegione = inailRepository.sumNumInfortuniByAnnoAndTrimestreAndRegione(anno, trimestre);
+        for (KeySum regione : totaleInfortuniPerRegione) {
+            String regioneDesc = Regioni.getDescrizioneFromCodice((String) regione.getKey());
+            logger.info("Nel {} trimestre del {}, numero totale infortuni per regione {} : {}", trimestre, anno, regioneDesc, regione.getTotale());
+        }
+
+        KeySum maxResultRegione = getMaxPerTotalePensioniPerTipo(totaleInfortuniPerRegione);
+        String regioneDescMax = Regioni.getDescrizioneFromCodice((String) maxResultRegione.getKey());
+        logger.info("Nel {} trimestre del {}, il sesso con piu' inforfortuni e' {} con {}", trimestre, anno, regioneDescMax, maxResultRegione.getTotale());
 
     }
 
@@ -168,10 +219,6 @@ public class EtlRunnerHelperService {
         return totalePensioniPerTipo.stream()
                 .max(Comparator.comparingLong(KeySum::getTotale)) // max per totale
                 .orElse(null);
-    }
-
-    void getAnalisiDatasetInail(int anno, String trimestre) {
-
     }
 
     void getAnalisiIncrociataDatasetInpsInail(int anno, String trimestre, List<String> regioniList) {
