@@ -53,4 +53,8 @@ public class UtilMapping {
                 return null;
         }
     }
+
+    public static String normalizzaDescRegione(String regione) {
+        return regione.trim().replaceAll("[\\s'’]+", "");
+    }
 }

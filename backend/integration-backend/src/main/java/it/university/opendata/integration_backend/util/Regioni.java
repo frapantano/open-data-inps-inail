@@ -67,9 +67,6 @@ public enum Regioni {
     public static List<String> getTutteDescrizioni() {
         return Arrays.stream(values())
                 .map(Regioni::getDescrizione)
-                .map(descrizione -> descrizione.equalsIgnoreCase("Valle d'Aosta")
-                        ? descrizione.replace("'", "")
-                        : descrizione)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 

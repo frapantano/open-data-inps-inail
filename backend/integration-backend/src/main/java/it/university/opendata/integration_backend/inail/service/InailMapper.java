@@ -6,23 +6,64 @@ import it.university.opendata.integration_backend.inail.entity.InfortuniInail;
 import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.ClasseEta;
 import it.university.opendata.integration_backend.util.Regioni;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.Set;
 
 @Component
 public class InailMapper {
+    private static final Logger logger = LoggerFactory.getLogger(InailMapper.class);
 
-    private InailKey inailKeyOf(InfortunioXmlDTO r, int anno, String trimestre, String regione) {
+    private InailKey inailKeyOf(InfortunioXmlDTO r, Integer anno, String trimestre, String regione) {
+        // Mapping
+        String codRegione = Regioni.getCodiceFromDescrizione(regione);
+        Integer codEta = ClasseEta.codiceDaEta(r.getEta());
+        String codCat = CategoriaInfortunio.codiceFromGrado(r.getGradoMenomazione(), r.getDataMorte());
+
+        // Verifica nulls
+        List<String> nulls = new ArrayList<>();
+        if (anno == null) nulls.add("anno");
+        if (trimestre == null) nulls.add("trimestre");
+        if (regione == null) nulls.add("regione(descr.)");
+        if (codRegione == null) nulls.add("codRegione");
+        if (r.getGenere() == null) nulls.add("genere");
+        if (codEta == null) nulls.add("codEta");
+        if (codCat == null) nulls.add("codCategoria");
+
+        if (!nulls.isEmpty()) {
+            String dtoStr = String.format(
+                    "{anno =%s, trimestre=%s, idCaso=%s, sesso=%s, eta=%s, regione=%s, dataMorte=%s, gradoMenom=%s}",
+                    Objects.toString(anno, "null"),
+                    Objects.toString(trimestre, "null"),
+                    Objects.toString(r.getIdentificativoCaso(), "null"),
+                    Objects.toString(r.getGenere(), "null"),
+                    Objects.toString(codEta, "null"),
+                    Objects.toString(regione, "null"),
+                    Objects.toString(r.getDataMorte(), "null"),
+                    Objects.toString(r.getGradoMenomazione(), "null")
+            );
+
+            logger.warn("Record INAIL scartato per campi null: {} | DTO={}",
+                    String.join(", ", nulls), dtoStr);
+            return null; // chiave scartata
+        }
+
         return new InailKey(
                 anno,
                 trimestre,
-                Regioni.getCodiceFromDescrizione(regione),
+                codRegione,
                 r.getGenere(),
-                ClasseEta.codiceDaEta(r.getEta()),
-                CategoriaInfortunio.codiceFromGrado(r.getGradoMenomazione(), r.getDataMorte())
+                codEta,
+                codCat
         );
     }
 
@@ -38,25 +79,33 @@ public class InailMapper {
         return e;
     }
 
-    public List<InfortuniInail> getInfortuniInail(List<InfortunioXmlDTO> infortuni, int anno, String trimestre, String regione) {
+    public List<InfortuniInail> getInfortuniInail(List<InfortunioXmlDTO> infortuni, Integer anno, String trimestre, String regione) {
+        if (infortuni == null || infortuni.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         //Aggrega dati INAIL
-        Map<InailKey, Integer> totaliAggregati = infortuni.stream()
-                .filter(r -> r.getIdentificativoCaso() != null && !r.getIdentificativoCaso().isBlank())
-                .collect(Collectors.groupingBy(
-                        r -> inailKeyOf(r, anno, trimestre, regione),
-                        Collectors.collectingAndThen(
-                                Collectors.mapping(
-                                        InfortunioXmlDTO::getIdentificativoCaso,
-                                        Collectors.toSet()  // DISTINCT
-                                ),
-                                set -> set.size()
-                        )
-                ));
+        // DISTINCT identificativi per chiave
+        Map<InailKey, Set<String>> distinctIdsByKey = new HashMap<>();
+
+        for (InfortunioXmlDTO r : infortuni) {
+            if (r == null) continue;
+
+            String idCaso = r.getIdentificativoCaso();
+            if (idCaso == null || idCaso.isBlank()) continue;
+
+            // inailKeyOf ritorna null se qualche campo è null e logga il record scartato
+            InailKey key = inailKeyOf(r, anno, trimestre, regione);
+            if (key == null) continue;
+
+            distinctIdsByKey.computeIfAbsent(key, k -> new HashSet<>()).add(idCaso);
+        }
 
         //Mapping risultati in InfortuniInail Entity
-        return  totaliAggregati.entrySet().stream()
-                .map(e -> toInailEntity(e.getKey(), e.getValue()))
-                .collect(Collectors.toList());
+        List<InfortuniInail> risultato = new ArrayList<>(distinctIdsByKey.size());
+        for (Map.Entry<InailKey, Set<String>> e : distinctIdsByKey.entrySet()) {
+            risultato.add(toInailEntity(e.getKey(), e.getValue().size()));
+        }
+        return risultato;
     }
 }

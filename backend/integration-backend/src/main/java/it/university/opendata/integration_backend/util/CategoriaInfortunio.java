@@ -1,5 +1,8 @@
 package it.university.opendata.integration_backend.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 
 public enum CategoriaInfortunio {
@@ -9,6 +12,8 @@ public enum CategoriaInfortunio {
     LIQUIDAZIONE("LQ", 5, 16, "Liquidazione"),           // [5, 16)
     MEDIO_TEMPORANEO("MT", 16, 80, "Medio Temporaneo"),      // [16, 80)
     GRAVE_PERMANENTE("GP", 80, null, "Grave Permanente");    // [80, +∞)
+
+    private static final Logger logger = LoggerFactory.getLogger(CategoriaInfortunio.class);
 
     private final String codice;
     private final Integer minIncluso;
@@ -44,7 +49,8 @@ public enum CategoriaInfortunio {
         }
 
         if (grado == null) {
-            throw new IllegalArgumentException("Grado nullo");
+            logger.warn("ATTENZIONE: Grado nullo");
+            return null;
         }
 
         for (CategoriaInfortunio c : values()) {
@@ -53,7 +59,8 @@ public enum CategoriaInfortunio {
                 return c.getCodice();
             }
         }
-        throw new IllegalArgumentException("Grado fuori range gestiti: " + grado);
+        logger.warn(String.format("Grado fuori range gestiti: ", grado));
+        return null;
     }
 
     /**

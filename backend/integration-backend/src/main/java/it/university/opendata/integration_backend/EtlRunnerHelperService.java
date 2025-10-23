@@ -77,6 +77,10 @@ public class EtlRunnerHelperService {
 
         //Aggrega e mappa i dati in PensioniInps Entity
         List<PensioniInps> entitiesPensioni = inpsMapper.getPensioniInps(pensioniItalia);
+        if (entitiesPensioni == null || entitiesPensioni.isEmpty()) {
+            logger.error("ATTENZIONE: ");
+            return;
+        }
 
         //Salva in PENSIONI_INPS
         inpsRepository.saveAll(entitiesPensioni);
@@ -84,7 +88,8 @@ public class EtlRunnerHelperService {
 
         //Caricamento dati INAIL
         for (String regione : regioniList) {
-            String resource = path + "inail/Infortuni_" + regione.trim();
+            String regioneNormalizzata = UtilMapping.normalizzaDescRegione(regione);
+            String resource = path + "inail/Infortuni_" + regioneNormalizzata + ".xml";
             List<InfortunioXmlDTO> infortuni = inailReader.readFromClasspath(resource);
             if (infortuni == null || infortuni.isEmpty()) {
                 logger.warn("ATTENZIONE: File XML '{}' non trovato o vuoto. Procedo con la prossima regione.", resource);

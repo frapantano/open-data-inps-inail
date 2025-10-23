@@ -1,5 +1,8 @@
 package it.university.opendata.integration_backend.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 
 public enum ClasseEta {
@@ -9,6 +12,8 @@ public enum ClasseEta {
     ETA_60_64(3, 60, 65, "60 - 64"),           // [60, 65)
     ETA_65_67(4, 65, 68, "65 - 67"),           // [65, 68)
     ETA_68_OLTRE(5, 68, null, "68 e oltre");      // [68, +∞)
+
+    private static final Logger logger = LoggerFactory.getLogger(ClasseEta.class);
 
     private final Integer codice;
     private final Integer minIncluso;    // null = -∞
@@ -40,17 +45,20 @@ public enum ClasseEta {
      **/
     public static Integer codiceDaEta(Integer eta) {
         if (eta == null) {
-            throw new IllegalArgumentException("Eta nulla");
+            logger.warn("ATTENZIONE: Eta' nulla");
+            return null;
         }
         if (eta < 0) {
-            throw new IllegalArgumentException("Età negativa: " + eta);
+            logger.warn("ATTENZIONE: Eta' negativa: {}", eta);
+            return null;
         }
         for (ClasseEta c : values()) {
             if (c.contiene(eta)) {
                 return c.getCodice();
             }
         }
-        throw new IllegalArgumentException("Eta fuori range gestiti: " + eta);
+        logger.warn("ATTENZIONE: Eta' fuori range gestiti: {}", eta);
+        return null;
     }
 
     /**
