@@ -1,17 +1,17 @@
 package it.university.opendata.integration_backend;
 
-import it.university.opendata.integration_backend.inail.dto.InfortunioXmlDTO;
-import it.university.opendata.integration_backend.inail.entity.InfortuniInail;
-import it.university.opendata.integration_backend.inail.repo.InfortuniInailRepository;
-import it.university.opendata.integration_backend.inail.service.InailMapper;
-import it.university.opendata.integration_backend.inail.service.reader.InailXmlClasspathReader;
-import it.university.opendata.integration_backend.inps.dto.InpsJsonRecord;
-import it.university.opendata.integration_backend.inps.entity.PensioniInps;
-import it.university.opendata.integration_backend.inps.repo.PensioniInpsRepository;
+import it.university.opendata.integration_backend.dto.inail.InfortunioXmlDTO;
+import it.university.opendata.integration_backend.entity.InfortuniInail;
+import it.university.opendata.integration_backend.repositories.inail.InfortuniInailRepository;
+import it.university.opendata.integration_backend.mapper.inail.InailMapper;
+import it.university.opendata.integration_backend.reader.InailXmlClasspathReader;
+import it.university.opendata.integration_backend.dto.inps.InpsJsonRecord;
+import it.university.opendata.integration_backend.entity.PensioniInps;
+import it.university.opendata.integration_backend.repositories.inps.PensioniInpsRepository;
 import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.proiezioni.KeySum;
-import it.university.opendata.integration_backend.inps.service.InpsMapper;
-import it.university.opendata.integration_backend.inps.service.reader.InpsJsonClasspathReader;
+import it.university.opendata.integration_backend.mapper.inps.InpsMapper;
+import it.university.opendata.integration_backend.reader.InpsJsonClasspathReader;
 import it.university.opendata.integration_backend.util.CategoriaPensione;
 import it.university.opendata.integration_backend.util.ClasseEta;
 import it.university.opendata.integration_backend.util.Regioni;

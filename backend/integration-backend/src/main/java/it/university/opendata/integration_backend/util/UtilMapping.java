@@ -1,5 +1,11 @@
 package it.university.opendata.integration_backend.util;
 
+import it.university.opendata.integration_backend.util.proiezioni.KeySum;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 public class UtilMapping {
 
     /** Dalla descrizione ritorna il codice S / M; null se non mappabile. */
@@ -56,5 +62,21 @@ public class UtilMapping {
 
     public static String normalizzaDescRegione(String regione) {
         return regione.trim().replaceAll("[\\s'’]+", "");
+    }
+
+    public static Map<String, Long> toMap(List<KeySum> list) {
+        Map<String, Long> map = new LinkedHashMap<>();
+
+        if (list == null) {
+            return map;
+        }
+
+        for (KeySum ks : list) {
+            String key = String.valueOf(ks.getKey());
+            Long value = ks.getTotale() != null ? ks.getTotale() : 0L;
+            map.put(key, value);
+        }
+
+        return map;
     }
 }
