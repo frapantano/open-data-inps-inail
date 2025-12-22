@@ -29,15 +29,6 @@ public class EtlRunner implements CommandLineRunner {
     public void run(String... args) throws IOException {
         helperService.caricaDataset(ANNO, TRIMESTRE, REGIONI);
         logger.info("Dataset INPS e INAIL caricato.");
-
-        logger.info("Analisi Dataset INPS - inizio");
-        helperService.getAnalisiDatasetInps(ANNO, TRIMESTRE);
-
-        logger.info("Analisi Dataset INAIL - inizio");
-        helperService.getAnalisiDatasetInail(ANNO, TRIMESTRE);
-
-        logger.info("Analisi incrociata Dataset INPS-INAIL - inizio");
-        helperService.getAnalisiIncrociataDatasetInpsInail(ANNO, TRIMESTRE, REGIONI);
     }
 
 }

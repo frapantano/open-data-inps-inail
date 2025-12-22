@@ -68,6 +68,8 @@ public class EtlRunnerHelperService {
 
         String path = "datasets/" + anno + SLASH + UtilMapping.romanToTrimestre(trimestre) + SLASH;
 
+        //INPS
+        //1. EXTRACT
         //Caricamento dati INPS
         List<InpsJsonRecord> pensioniItalia = inpsReader.readFromClasspath(path + "inps/pensioniItalia.json");
         if (pensioniItalia == null) {
@@ -75,6 +77,7 @@ public class EtlRunnerHelperService {
             return;
         }
 
+        //2. TRANSFORM
         //Aggrega e mappa i dati in PensioniInps Entity
         List<PensioniInps> entitiesPensioni = inpsMapper.getPensioniInps(pensioniItalia);
         if (entitiesPensioni == null || entitiesPensioni.isEmpty()) {
@@ -82,10 +85,13 @@ public class EtlRunnerHelperService {
             return;
         }
 
+        //3. LOAD
         //Salva in PENSIONI_INPS
         inpsRepository.saveAll(entitiesPensioni);
         logger.info(String.format("ETL INPS completato: %s record caricati.", entitiesPensioni.size()));
 
+        //INAIL
+        //1. EXTRACT
         //Caricamento dati INAIL
         for (String regione : regioniList) {
             String regioneNormalizzata = UtilMapping.normalizzaDescRegione(regione);
@@ -96,8 +102,11 @@ public class EtlRunnerHelperService {
                 continue; // vai avanti senza interrompere il ciclo
             }
 
-            //Salva in INFORTUNI_INAIL
+            //2. TRANSFORM
+            //Aggrega e mappa i dati in InfortuniInail Entity
             List<InfortuniInail> entitiesInail = inailMapper.getInfortuniInail(infortuni, anno, trimestre, regione);
+
+            //3. LOAD
             inailRepository.saveAll(entitiesInail);
             logger.info(String.format("ETL INAIL %s completato: %s record caricati.", regione, entitiesInail.size()));
         }

@@ -15,14 +15,13 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class InailInfortuniTotaliDTO {
+public class InailDistribuzioneCategoriaInfortuniDTO {
+    // KEY1 fisso nelle analisi 3.x
+    private String categoriaInfortunio;
 
-    private Integer anno;
-    private String trimestre;
-    private long totale;
+    // dimensione della mappa (KEY2): SESSO / CLASSE_ETA / REGIONE
+    private String groupBy;
 
-    private Map<String, Long> perSesso;
-    private Map<String, Long> perClasseEta;
-    private Map<String, Long> perCategoria;
-    private Map<String, Long> perRegione;
+    // KEY2 -> totale (SUM NUM_INFORTUNI)
+    private Map<String, Long> values;
 }
