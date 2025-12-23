@@ -40,38 +40,38 @@ public class AnalisiIncrociataController {
     //2 Confronti tematici tra categorie INAIL e INPS
 
     //2.1 Infortuni mortali ↔ Pensioni ai superstiti
-    //2.1.1 Confronto per contesto territoriale e temporale: Nel medesimo contesto di genere e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
+    //2.1.1 Confronto per contesto per genere e temporale: Nel medesimo contesto di genere e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
     @GetMapping("/mo-superstiti/sesso")
     public CrossInfortuniMortaliPensioneSuperstitiDTO getInfMoVsSuperstitiSesso(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam String codSesso) {
         return analisiIncrociataService.getInfMoVsSuperstitiSesso(anno, trimestre, codSesso);
     }
 
-    //2.1.2 Confronto per genere e contesto temporale: Nel medesimo contesto di classe di età e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
+    //2.1.2 Confronto per classe di eta e contesto temporale: Nel medesimo contesto di classe di età e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
     @GetMapping("/mo-superstiti/classe-eta")
     public CrossInfortuniMortaliPensioneSuperstitiDTO getInfMoSuperstitiClasseEta(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam Integer codClasseEta) {
         return analisiIncrociataService.getInfMoSuperstitiClasseEta(anno, trimestre, codClasseEta);
     }
 
-    //2.1.3 Confronto per classe di età e contesto temporale: Nel medesimo contesto territoriale di età e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
+    //2.1.3 Confronto territoriale e temporale: Nel medesimo contesto territoriale di età e temporale, come si confrontano i volumi aggregati degli infortuni con esito mortale (MO) e delle pensioni ai superstiti?
     @GetMapping("/mo-superstiti/regione")
     public CrossInfortuniMortaliPensioneSuperstitiDTO getInfMoSuperstitiRegione(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam String codIstatRegione) {
         return analisiIncrociataService.getInfMoSuperstitiRegione(anno, trimestre, codIstatRegione);
     }
 
     //2.2 Infortuni con menomazione medio-grave o permanente ↔ Pensioni di invalidità
-    //2.2.1 Confronto per contesto territoriale e temporale: Nel medesimo contesto di genere e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
+    //2.2.1 Confronto per contesto per genere e temporale: Nel medesimo contesto di genere e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
     @GetMapping("/mt-gp-invalidita/sesso")
     public CrossInfortuniMedioGraviPensioneInvaliditaDTO getInfMtGpVsInvaliditaSesso(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam String codSesso) {
         return analisiIncrociataService.getInfMtGpVsInvaliditaSesso(anno, trimestre, codSesso);
     }
 
-    //2.2.2 Confronto per genere e contesto temporale: Nel medesimo contesto di classe di eta e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
+    //2.2.2 Confronto per classe di eta e contesto temporale: Nel medesimo contesto di classe di eta e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
     @GetMapping("/mt-gp-invalidita/classe-eta")
     public CrossInfortuniMedioGraviPensioneInvaliditaDTO getInfMtGpVsInvaliditaClasseEta(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam Integer codClasseEta) {
         return analisiIncrociataService.getInfMtGpVsInvaliditaClasseEta(anno, trimestre, codClasseEta);
     }
 
-    //2.2.3 Confronto per classe di età e contesto temporale: Nel medesimo contesto territoriale e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
+    //2.2.3 Confronto territoriale e temporale: Nel medesimo contesto territoriale e temporale, come si confrontano i volumi aggregati degli infortuni caratterizzati da menomazioni medio-gravi o permanenti (MT + GP) e delle pensioni di invalidità?
     @GetMapping("/mt-gp-invalidita/regione")
     public CrossInfortuniMedioGraviPensioneInvaliditaDTO getInfMtGpVsInvaliditaRegione(@RequestParam Integer anno, @RequestParam String trimestre, @RequestParam String codIstatRegione) {
         return analisiIncrociataService.getInfMtGpVsInvaliditaRegione(anno, trimestre, codIstatRegione);

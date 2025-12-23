@@ -90,7 +90,7 @@ public interface InfortuniInailRepository extends JpaRepository<InfortuniInail, 
 
     @Query("select coalesce(sum(p.numInfortuni), 0) " +
             "from InfortuniInail p " +
-            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio = 'MO'" +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio = 'MO' " +
             "and (:regione is null or p.regione = :regione) " +
             "and (:sesso is null or p.sesso = :sesso) " +
             "and (:classeEta is null or p.classeEta = :classeEta) ")
@@ -98,7 +98,7 @@ public interface InfortuniInailRepository extends JpaRepository<InfortuniInail, 
 
     @Query("select coalesce(sum(p.numInfortuni), 0) " +
             "from InfortuniInail p " +
-            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio in ('MT', 'GT')" +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio in ('MT', 'GP')" +
             "and (:regione is null or p.regione = :regione) " +
             "and (:sesso is null or p.sesso = :sesso) " +
             "and (:classeEta is null or p.classeEta = :classeEta) ")
