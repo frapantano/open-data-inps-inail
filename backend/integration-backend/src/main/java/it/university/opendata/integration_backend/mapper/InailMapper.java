@@ -1,7 +1,7 @@
-package it.university.opendata.integration_backend.mapper.inail;
+package it.university.opendata.integration_backend.mapper;
 
-import it.university.opendata.integration_backend.dto.inail.InailKey;
-import it.university.opendata.integration_backend.dto.inail.InfortunioXmlDTO;
+import it.university.opendata.integration_backend.dto.inail.payload.InailKey;
+import it.university.opendata.integration_backend.dto.inail.payload.InfortunioXmlDTO;
 import it.university.opendata.integration_backend.entity.InfortuniInail;
 import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.ClasseEta;

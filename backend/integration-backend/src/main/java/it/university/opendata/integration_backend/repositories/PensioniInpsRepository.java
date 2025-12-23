@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.repositories.inps;
+package it.university.opendata.integration_backend.repositories;
 
 import it.university.opendata.integration_backend.entity.PensioniInps;
 import it.university.opendata.integration_backend.util.proiezioni.Key2Sum;

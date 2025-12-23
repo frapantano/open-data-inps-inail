@@ -1,6 +1,6 @@
 package it.university.opendata.integration_backend.service;
 
-import it.university.opendata.integration_backend.dto.inail.InailDistribuzioneCategoriaDTO;
+import it.university.opendata.integration_backend.dto.inail.response.InailDistribuzioneCategoriaDTO;
 import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
 import it.university.opendata.integration_backend.dto.TotaliDTO;
 import org.springframework.web.bind.annotation.RequestParam;

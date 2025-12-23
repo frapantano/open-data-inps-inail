@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto.inail;
+package it.university.opendata.integration_backend.dto.inail.payload;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

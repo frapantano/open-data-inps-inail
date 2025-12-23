@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto.inps;
+package it.university.opendata.integration_backend.dto.inps.payload;
 
 import java.util.Objects;
 

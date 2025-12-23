@@ -1,8 +1,8 @@
 package it.university.opendata.integration_backend.reader;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import it.university.opendata.integration_backend.dto.inail.InfortuniXml;
-import it.university.opendata.integration_backend.dto.inail.InfortunioXmlDTO;
+import it.university.opendata.integration_backend.dto.inail.payload.InfortuniXml;
+import it.university.opendata.integration_backend.dto.inail.payload.InfortunioXmlDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;

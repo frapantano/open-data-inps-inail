@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.repositories.inail;
+package it.university.opendata.integration_backend.repositories;
 
 import it.university.opendata.integration_backend.entity.InfortuniInail;
 import it.university.opendata.integration_backend.util.proiezioni.Key2Sum;

@@ -1,7 +1,7 @@
 package it.university.opendata.integration_backend.reader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.university.opendata.integration_backend.dto.inps.InpsJsonRecord;
+import it.university.opendata.integration_backend.dto.inps.payload.InpsJsonRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;

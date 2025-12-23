@@ -1,16 +1,16 @@
 package it.university.opendata.integration_backend;
 
-import it.university.opendata.integration_backend.dto.inail.InfortunioXmlDTO;
+import it.university.opendata.integration_backend.dto.inail.payload.InfortunioXmlDTO;
 import it.university.opendata.integration_backend.entity.InfortuniInail;
-import it.university.opendata.integration_backend.repositories.inail.InfortuniInailRepository;
-import it.university.opendata.integration_backend.mapper.inail.InailMapper;
+import it.university.opendata.integration_backend.repositories.InfortuniInailRepository;
+import it.university.opendata.integration_backend.mapper.InailMapper;
 import it.university.opendata.integration_backend.reader.InailXmlClasspathReader;
-import it.university.opendata.integration_backend.dto.inps.InpsJsonRecord;
+import it.university.opendata.integration_backend.dto.inps.payload.InpsJsonRecord;
 import it.university.opendata.integration_backend.entity.PensioniInps;
-import it.university.opendata.integration_backend.repositories.inps.PensioniInpsRepository;
+import it.university.opendata.integration_backend.repositories.PensioniInpsRepository;
 import it.university.opendata.integration_backend.util.CategoriaInfortunio;
 import it.university.opendata.integration_backend.util.proiezioni.KeySum;
-import it.university.opendata.integration_backend.mapper.inps.InpsMapper;
+import it.university.opendata.integration_backend.mapper.InpsMapper;
 import it.university.opendata.integration_backend.reader.InpsJsonClasspathReader;
 import it.university.opendata.integration_backend.util.CategoriaPensione;
 import it.university.opendata.integration_backend.util.ClasseEta;

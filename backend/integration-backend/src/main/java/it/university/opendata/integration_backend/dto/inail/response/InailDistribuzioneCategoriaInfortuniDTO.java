@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto.inail;
+package it.university.opendata.integration_backend.dto.inail.response;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

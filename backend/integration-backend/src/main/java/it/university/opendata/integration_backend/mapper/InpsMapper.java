@@ -1,7 +1,7 @@
-package it.university.opendata.integration_backend.mapper.inps;
+package it.university.opendata.integration_backend.mapper;
 
-import it.university.opendata.integration_backend.dto.inps.InpsJsonRecord;
-import it.university.opendata.integration_backend.dto.inps.InpsKey;
+import it.university.opendata.integration_backend.dto.inps.payload.InpsJsonRecord;
+import it.university.opendata.integration_backend.dto.inps.payload.InpsKey;
 import it.university.opendata.integration_backend.entity.PensioniInps;
 import it.university.opendata.integration_backend.util.CategoriaPensione;
 import it.university.opendata.integration_backend.util.ClasseEta;

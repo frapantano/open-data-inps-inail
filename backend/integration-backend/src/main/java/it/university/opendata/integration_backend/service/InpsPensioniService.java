@@ -2,7 +2,7 @@ package it.university.opendata.integration_backend.service;
 
 import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
 import it.university.opendata.integration_backend.dto.TotaliDTO;
-import it.university.opendata.integration_backend.dto.inps.InpsDistribuzioneCategoriaDTO;
+import it.university.opendata.integration_backend.dto.inps.response.InpsDistribuzioneCategoriaDTO;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface InpsPensioniService {

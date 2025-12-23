@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto.inail;
+package it.university.opendata.integration_backend.dto.inail.payload;
 
 import java.util.Objects;
 
