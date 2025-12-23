@@ -15,14 +15,13 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class InpsPensioniTotaliDTO {
+public class InpsDistribuzioneCategoriaPensioniDTO {
+    // KEY1 fisso nelle analisi 3.x
+    private String categoriaPensioni;
 
-    private Integer anno;
-    private String trimestre;
-    private long totale;
+    // dimensione della mappa (KEY2): SESSO / CLASSE_ETA / REGIONE
+    private String groupBy;
 
-    private Map<String, Long> perSesso;
-    private Map<String, Long> perClasseEta;
-    private Map<String, Long> perCategoria;
-    private Map<String, Long> perRegione;
+    // KEY2 -> totale (SUM NUM_PENSIONI)
+    private Map<String, Long> values;
 }

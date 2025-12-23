@@ -1,8 +1,25 @@
 package it.university.opendata.integration_backend.service;
 
-import it.university.opendata.integration_backend.dto.inps.InpsPensioniTotaliDTO;
+import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
+import it.university.opendata.integration_backend.dto.TotaliDTO;
+import it.university.opendata.integration_backend.dto.inps.InpsDistribuzioneCategoriaDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface InpsPensioniService {
 
-    InpsPensioniTotaliDTO getTotali(Integer anno, String trimestre);
+    TotaliDTO getTotali(Integer anno, String trimestre);
+
+    DistribuzioneDTO getDistribuzionePerSesso(Integer anno, String trimestre);
+
+    DistribuzioneDTO getDistribuzionePerClasseEta(Integer anno, String trimestre);
+
+    DistribuzioneDTO getDistribuzionePerCategoria(Integer anno, String trimestre);
+
+    DistribuzioneDTO getDistribuzionePerRegione(Integer anno, String trimestre);
+
+    InpsDistribuzioneCategoriaDTO getDistribuzioneCategoriaPensioniPerSesso(@RequestParam Integer anno, @RequestParam String trimestre);
+
+    InpsDistribuzioneCategoriaDTO getDistribuzioneCategoriaPensioniPerClasseEta(@RequestParam Integer anno, @RequestParam String trimestre);
+
+    InpsDistribuzioneCategoriaDTO getDistribuzioneCategoriaPensioniPerRegione(@RequestParam Integer anno, @RequestParam String trimestre);
 }

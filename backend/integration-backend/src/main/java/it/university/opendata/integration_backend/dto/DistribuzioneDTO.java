@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto.inail;
+package it.university.opendata.integration_backend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class InailDistribuzioneInfortuniDTO {
+public class DistribuzioneDTO {
 
     private Integer anno;
     private String trimestre;
@@ -23,6 +23,6 @@ public class InailDistribuzioneInfortuniDTO {
     // per capire cosa rappresenta la mappa: SESSO / CLASSE_ETA / CATEGORIA / REGIONE
     private String groupBy;
 
-    // chiave -> totale (SUM NUM_INFORTUNI)
+    // chiave -> totale (SUM NUM_INFORTUNI O NUM_PENSIONI)
     private Map<String, Long> values;
 }

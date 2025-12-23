@@ -2,8 +2,8 @@ package it.university.opendata.integration_backend.service.impl;
 
 import it.university.opendata.integration_backend.dto.inail.InailDistribuzioneCategoriaDTO;
 import it.university.opendata.integration_backend.dto.inail.InailDistribuzioneCategoriaInfortuniDTO;
-import it.university.opendata.integration_backend.dto.inail.InailDistribuzioneInfortuniDTO;
-import it.university.opendata.integration_backend.dto.inail.InailTotaliInfortuniDTO;
+import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
+import it.university.opendata.integration_backend.dto.TotaliDTO;
 import it.university.opendata.integration_backend.repositories.inail.InfortuniInailRepository;
 import it.university.opendata.integration_backend.service.InailInfortuniService;
 import it.university.opendata.integration_backend.util.UtilMapping;
@@ -26,10 +26,10 @@ public class InailInfortuniServiceImpl implements InailInfortuniService {
     }
 
     @Override
-    public InailTotaliInfortuniDTO getTotali(Integer anno, String trimestre) {
+    public TotaliDTO getTotali(Integer anno, String trimestre) {
         long totale = repository.sumNumInfortuniByAnnoAndTrimestre(anno, trimestre);
 
-        InailTotaliInfortuniDTO dto = new InailTotaliInfortuniDTO();
+        TotaliDTO dto = new TotaliDTO();
         dto.setAnno(anno);
         dto.setTrimestre(trimestre);
         dto.setTotale(totale);
@@ -38,10 +38,10 @@ public class InailInfortuniServiceImpl implements InailInfortuniService {
     }
 
     @Override
-    public InailDistribuzioneInfortuniDTO getDistribuzionePerSesso(Integer anno, String trimestre){
+    public DistribuzioneDTO getDistribuzionePerSesso(Integer anno, String trimestre) {
         List<KeySum> totaliPerSesso = repository.sumNumInfortuniByAnnoAndTrimestreAndSesso(anno, trimestre);
 
-        InailDistribuzioneInfortuniDTO dto = new InailDistribuzioneInfortuniDTO();
+        DistribuzioneDTO dto = new DistribuzioneDTO();
         dto.setAnno(anno);
         dto.setTrimestre(trimestre);
         dto.setGroupBy("SESSO");
@@ -51,10 +51,10 @@ public class InailInfortuniServiceImpl implements InailInfortuniService {
     }
 
     @Override
-    public InailDistribuzioneInfortuniDTO getDistribuzionePerClasseEta(Integer anno, String trimestre){
+    public DistribuzioneDTO getDistribuzionePerClasseEta(Integer anno, String trimestre) {
         List<KeySum> totaliPerClasseEta = repository.sumNumInfortuniByAnnoAndTrimestreAndClasseEta(anno, trimestre);
 
-        InailDistribuzioneInfortuniDTO dto = new InailDistribuzioneInfortuniDTO();
+        DistribuzioneDTO dto = new DistribuzioneDTO();
         dto.setAnno(anno);
         dto.setTrimestre(trimestre);
         dto.setGroupBy("CLASSE_ETA");
@@ -64,10 +64,10 @@ public class InailInfortuniServiceImpl implements InailInfortuniService {
     }
 
     @Override
-    public InailDistribuzioneInfortuniDTO getDistribuzionePerCategoria(Integer anno, String trimestre) {
+    public DistribuzioneDTO getDistribuzionePerCategoria(Integer anno, String trimestre) {
         List<KeySum> totaliPerCategoria = repository.sumNumInfortuniByAnnoAndTrimestreAndCategoriaInfortunio(anno, trimestre);
 
-        InailDistribuzioneInfortuniDTO dto = new InailDistribuzioneInfortuniDTO();
+        DistribuzioneDTO dto = new DistribuzioneDTO();
         dto.setAnno(anno);
         dto.setTrimestre(trimestre);
         dto.setGroupBy("CATEGORIA_INFORTUNIO");
@@ -77,16 +77,17 @@ public class InailInfortuniServiceImpl implements InailInfortuniService {
     }
 
     @Override
-    public InailDistribuzioneInfortuniDTO getDistribuzionePerRegione(Integer anno, String trimestre) {
+    public DistribuzioneDTO getDistribuzionePerRegione(Integer anno, String trimestre) {
         List<KeySum> totaliPerRegione = repository.sumNumInfortuniByAnnoAndTrimestreAndRegione(anno, trimestre);
 
-        InailDistribuzioneInfortuniDTO dto = new InailDistribuzioneInfortuniDTO();
+        DistribuzioneDTO dto = new DistribuzioneDTO();
         dto.setAnno(anno);
         dto.setTrimestre(trimestre);
         dto.setGroupBy("REGIONE");
         dto.setValues(UtilMapping.toMap(totaliPerRegione));
 
-        return dto;    }
+        return dto;
+    }
 
     @Override
     public InailDistribuzioneCategoriaDTO getDistribuzioneCategoriaInfortuniPerSesso(Integer anno, String trimestre) {
