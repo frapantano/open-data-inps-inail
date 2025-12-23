@@ -1,8 +1,8 @@
 package it.university.opendata.integration_backend.controller;
 
 import it.university.opendata.integration_backend.dto.inail.response.InailDistribuzioneCategoriaDTO;
-import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
-import it.university.opendata.integration_backend.dto.TotaliDTO;
+import it.university.opendata.integration_backend.dto.composizioni.DistribuzioneDTO;
+import it.university.opendata.integration_backend.dto.composizioni.TotaliDTO;
 import it.university.opendata.integration_backend.service.InailInfortuniService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

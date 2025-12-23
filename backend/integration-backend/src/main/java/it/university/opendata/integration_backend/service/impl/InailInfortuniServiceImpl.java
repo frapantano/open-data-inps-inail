@@ -2,8 +2,8 @@ package it.university.opendata.integration_backend.service.impl;
 
 import it.university.opendata.integration_backend.dto.inail.response.InailDistribuzioneCategoriaDTO;
 import it.university.opendata.integration_backend.dto.inail.response.InailDistribuzioneCategoriaInfortuniDTO;
-import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
-import it.university.opendata.integration_backend.dto.TotaliDTO;
+import it.university.opendata.integration_backend.dto.composizioni.DistribuzioneDTO;
+import it.university.opendata.integration_backend.dto.composizioni.TotaliDTO;
 import it.university.opendata.integration_backend.repositories.InfortuniInailRepository;
 import it.university.opendata.integration_backend.service.InailInfortuniService;
 import it.university.opendata.integration_backend.util.UtilMapping;

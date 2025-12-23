@@ -1,4 +1,4 @@
-package it.university.opendata.integration_backend.dto;
+package it.university.opendata.integration_backend.dto.composizioni;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

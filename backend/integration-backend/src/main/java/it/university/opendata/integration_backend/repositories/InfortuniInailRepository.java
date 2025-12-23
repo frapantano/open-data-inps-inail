@@ -46,6 +46,27 @@ public interface InfortuniInailRepository extends JpaRepository<InfortuniInail, 
             "order by coalesce(sum(p.numInfortuni),0) desc, p.regione asc ")
     List<KeySum> sumNumInfortuniByAnnoAndTrimestreAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre);
 
+    @Query("select p.categoriaInfortunio as key, coalesce(sum(p.numInfortuni),0) as totale " +
+            "from InfortuniInail p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.sesso = :sesso " +
+            "group by p.categoriaInfortunio " +
+            "order by coalesce(sum(p.numInfortuni),0) desc ")
+    List<KeySum> sumNumInfortuniByAnnoAndTrimestreAndSesso(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("sesso") String sesso);
+
+    @Query("select p.categoriaInfortunio as key, coalesce(sum(p.numInfortuni),0) as totale " +
+            "from InfortuniInail p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.classeEta = :classeEta " +
+            "group by p.categoriaInfortunio " +
+            "order by coalesce(sum(p.numInfortuni),0) desc ")
+    List<KeySum> sumNumInfortuniByAnnoAndTrimestreAndClasseEta(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("classeEta") Integer classeEta);
+
+    @Query("select p.categoriaInfortunio as key, coalesce(sum(p.numInfortuni),0) as totale " +
+            "from InfortuniInail p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.regione = :regione " +
+            "group by p.categoriaInfortunio " +
+            "order by coalesce(sum(p.numInfortuni),0) desc ")
+    List<KeySum> sumNumInfortuniByAnnoAndTrimestreAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione);
+
     @Query("select p.categoriaInfortunio as key1, p.sesso as key2, coalesce(sum(p.numInfortuni),0) as totale " +
             "from InfortuniInail p " +
             "where p.anno = :anno and p.trimestre = :trimestre " +
@@ -66,4 +87,20 @@ public interface InfortuniInailRepository extends JpaRepository<InfortuniInail, 
             "group by p.categoriaInfortunio, p.regione " +
             "order by p.categoriaInfortunio asc, p.regione asc, coalesce(sum(p.numInfortuni),0) desc ")
     List<Key2Sum> sumByCategoriaAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre);
+
+    @Query("select coalesce(sum(p.numInfortuni), 0) " +
+            "from InfortuniInail p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio = 'MO'" +
+            "and (:regione is null or p.regione = :regione) " +
+            "and (:sesso is null or p.sesso = :sesso) " +
+            "and (:classeEta is null or p.classeEta = :classeEta) ")
+    Long sumInfortuniMortali(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione, @Param("sesso") String sesso, @Param("classeEta") Integer classeEta);
+
+    @Query("select coalesce(sum(p.numInfortuni), 0) " +
+            "from InfortuniInail p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaInfortunio in ('MT', 'GT')" +
+            "and (:regione is null or p.regione = :regione) " +
+            "and (:sesso is null or p.sesso = :sesso) " +
+            "and (:classeEta is null or p.classeEta = :classeEta) ")
+    Long sumInfortuniMedioGrave(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione, @Param("sesso") String sesso, @Param("classeEta") Integer classeEta);
 }

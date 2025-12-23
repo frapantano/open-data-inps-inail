@@ -46,6 +46,27 @@ public interface PensioniInpsRepository extends JpaRepository<PensioniInps, Long
             "order by coalesce(sum(p.numPensioni),0) desc, p.regione asc ")
     List<KeySum> sumNumPensioniByAnnoAndTrimestreAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre);
 
+    @Query("select p.categoriaPensione as key, coalesce(sum(p.numPensioni),0) as totale " +
+            "from PensioniInps p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.sesso = :sesso " +
+            "group by p.categoriaPensione " +
+            "order by coalesce(sum(p.numPensioni),0) desc ")
+    List<KeySum> sumNumPensioniByAnnoAndTrimestreAndSesso(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("sesso") String sesso);
+
+    @Query("select p.categoriaPensione as key, coalesce(sum(p.numPensioni),0) as totale " +
+            "from PensioniInps p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.classeEta = :classeEta " +
+            "group by p.categoriaPensione " +
+            "order by coalesce(sum(p.numPensioni),0) desc ")
+    List<KeySum> sumNumPensioniByAnnoAndTrimestreAndClasseEta(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("classeEta") Integer classeEta);
+
+    @Query("select p.categoriaPensione as key, coalesce(sum(p.numPensioni),0) as totale " +
+            "from PensioniInps p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.regione = :regione " +
+            "group by p.categoriaPensione " +
+            "order by coalesce(sum(p.numPensioni),0) desc ")
+    List<KeySum> sumNumPensioniByAnnoAndTrimestreAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione);
+
     @Query("select p.categoriaPensione as key1, p.sesso as key2, coalesce(sum(p.numPensioni),0) as totale " +
             "from PensioniInps p " +
             "where p.anno = :anno and p.trimestre = :trimestre " +
@@ -66,4 +87,20 @@ public interface PensioniInpsRepository extends JpaRepository<PensioniInps, Long
             "group by p.categoriaPensione, p.regione " +
             "order by p.categoriaPensione asc, p.regione asc, coalesce(sum(p.numPensioni),0) desc ")
     List<Key2Sum> sumByCategoriaAndRegione(@Param("anno") Integer anno, @Param("trimestre") String trimestre);
+
+    @Query("select coalesce(sum(p.numPensioni), 0) " +
+            "from PensioniInps p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaPensione = 'S'" +
+            "and (:regione is null or p.regione = :regione) " +
+            "and (:sesso is null or p.sesso = :sesso) " +
+            "and (:classeEta is null or p.classeEta = :classeEta) ")
+    Long sumPensioniSuperstiti(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione, @Param("sesso") String sesso, @Param("classeEta") Integer classeEta);
+
+    @Query("select coalesce(sum(p.numPensioni), 0) " +
+            "from PensioniInps p " +
+            "where p.anno = :anno and p.trimestre = :trimestre and p.categoriaPensione = 'I'" +
+            "and (:regione is null or p.regione = :regione) " +
+            "and (:sesso is null or p.sesso = :sesso) " +
+            "and (:classeEta is null or p.classeEta = :classeEta) ")
+    Long sumPensioniInvalidita(@Param("anno") Integer anno, @Param("trimestre") String trimestre, @Param("regione") String regione, @Param("sesso") String sesso, @Param("classeEta") Integer classeEta);
 }

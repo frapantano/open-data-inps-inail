@@ -1,7 +1,7 @@
 package it.university.opendata.integration_backend.service.impl;
 
-import it.university.opendata.integration_backend.dto.DistribuzioneDTO;
-import it.university.opendata.integration_backend.dto.TotaliDTO;
+import it.university.opendata.integration_backend.dto.composizioni.DistribuzioneDTO;
+import it.university.opendata.integration_backend.dto.composizioni.TotaliDTO;
 import it.university.opendata.integration_backend.dto.inps.response.InpsDistribuzioneCategoriaDTO;
 import it.university.opendata.integration_backend.dto.inps.response.InpsDistribuzioneCategoriaPensioniDTO;
 import it.university.opendata.integration_backend.repositories.PensioniInpsRepository;
